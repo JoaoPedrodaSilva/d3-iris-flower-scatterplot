@@ -6,6 +6,6 @@ import { DataProvider } from './dataContext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <DataProvider>
-        <App />        
+        <App />
     </DataProvider>
-    )
+)
