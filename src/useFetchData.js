@@ -1,9 +1,8 @@
-import { useEffect } from "react"
+import { useState, useEffect } from "react"
 import { csv } from "d3"
-import { useDataContext } from "./dataContext"
 
 export const useFetchData = () => {
-    const { setData } = useDataContext()
+    const [data, setData] = useState()
 
     useEffect(() => {
         const preliminaryData = []
@@ -22,4 +21,5 @@ export const useFetchData = () => {
                 setData(preliminaryData)
             })          
     }, [setData])
+    return data
 }

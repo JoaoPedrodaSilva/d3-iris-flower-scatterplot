@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { scaleLinear, scaleOrdinal, extent, format } from "d3"
-import { useDataContext } from "./dataContext"
 import { useFetchData } from "./useFetchData"
 
 //importing components
@@ -17,7 +16,8 @@ import { Source } from "./components/Source"
 
 export const App = () => {
     //states and variables
-    const { data } = useDataContext()
+    const data = useFetchData()
+    const [hoveredSpecie, setHoveredSpecie] = useState(null)
 
     const attributes = [
         { value: "sepal_length", label: "Sepal Length" },
@@ -35,7 +35,7 @@ export const App = () => {
             }
         })
         return desiredLabel
-    }    
+    }
 
     const width = 960 //gotta change it in the index.css #root selector too
     const height = 650 //gotta change it in the index.css #root selector too
@@ -46,24 +46,27 @@ export const App = () => {
 
     const [xAttribute, setXAttribute] = useState('petal_length')
     const xAccessor = d => d[xAttribute]
+    const xAccessorTickFormat = format(".1f")
     const xLabel = getAttributeLabel(xAttribute)
-    const xAccessorTickFormat = tick => format(".1f")(tick)
+
 
     const [yAttribute, setYAttribute] = useState('sepal_width')
     const yAccessor = d => d[yAttribute]
+    const yAccessorTickFormat = format(".1f")
     const yLabel = getAttributeLabel(yAttribute)
-    const yAccessorTickFormat = tick => format(".1f")(tick)
+
 
     const colorAccessor = d => d.species
-
-    //fetch data
-    useFetchData()
 
 
     //render in case of no data
     if (!data) {
         return <pre>Loading...</pre>
     }
+
+
+    //filter data based on the specie hovered
+    const filteredData = data.filter(d => hoveredSpecie === colorAccessor(d))
 
 
     //scales
@@ -129,7 +132,29 @@ export const App = () => {
                         />
                         <LabelLeft label={yLabel} />
 
+                        <g opacity={ hoveredSpecie ? 0.3 : 1}>
+                            <Marks
+                                data={data}
+                                circleRadius={circleRadius}
+
+                                xScale={xScale}
+                                xAccessor={xAccessor}
+                                xLabel={xLabel}
+
+                                yScale={yScale}
+                                yAccessor={yAccessor}
+                                yLabel={yLabel}
+
+                                colorScale={colorScale}
+                                colorAccessor={colorAccessor}
+                                //color label
+                            />
+                        </g>
+
                         <Marks
+                            data={filteredData}
+                            circleRadius={circleRadius}
+
                             xScale={xScale}
                             xAccessor={xAccessor}
                             xLabel={xLabel}
@@ -140,14 +165,14 @@ export const App = () => {
 
                             colorScale={colorScale}
                             colorAccessor={colorAccessor}
-                            //color label                            
-
-                            circleRadius={circleRadius}
+                            //color label
                         />
 
                         <ColorLegend
                             colorScale={colorScale}
                             circleRadius={circleRadius}
+                            onHover={setHoveredSpecie}
+                            hoveredSpecie={hoveredSpecie}
                         />
 
                         <Source />

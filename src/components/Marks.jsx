@@ -1,12 +1,9 @@
-import { useDataContext } from '../dataContext'
-
 export const Marks = ({
+    data, circleRadius,
     xScale, xAccessor, xLabel,
     yScale, yAccessor, yLabel,
-    colorScale, colorAccessor,
-    circleRadius
-}) => {
-    const { data } = useDataContext()
+    colorScale, colorAccessor    
+}) => {    
 
     return (
         data.map((d, i) => (
