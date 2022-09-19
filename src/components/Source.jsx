@@ -1,5 +1,5 @@
-export const Source = ({ innerWidth, innerHeight }) => (
-    <g transform={`translate(${innerWidth - 278}, ${innerHeight + 50})`}>
+export const Source = () => (
+    <g transform={`translate(570, 580)`}>
         <text style={{ fill: "#635f5d", fontSize: "0.7rem" }}>
             Source:
             <a

@@ -13,8 +13,55 @@ body {
 
 #root {
     width: 960px;
-    height: 500px;
+    height: 650px;
 }
+
+/* DROPDOWNS */
+
+.dropdown-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5rem;
+    margin: 1rem;
+    font-size: 1.2rem;
+}
+
+.dropdown-container label {
+    margin-right: 0.2rem;
+}
+
+.dropdown-container select {
+    font-size: 1.2rem;
+    border-radius: 0.2rem;
+}
+
+@media (max-width: 640px) {
+    .dropdown-container {
+        flex-direction: column;
+        align-items: end;
+        gap: 1rem;
+        font-size: 1rem;
+    }
+
+    .dropdown-container select {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 425px) {
+    .dropdown-container {
+        gap: 0.5rem;
+        font-size: 0.6rem;
+    }
+
+    .dropdown-container select {
+        font-size: 0.6rem;
+    }
+}
+
+
+/* RESPONSIVE SVG */
 
 .responsive-div {
     display: inline-block;

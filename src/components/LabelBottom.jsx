@@ -1,7 +1,7 @@
-export const LabelBottom = ({ width, height, label }) => (
-    <g transform={`translate(${width / 2.75}, ${height - 70})`}>
+export const LabelBottom = ({ label }) => (
+    <g transform={`translate(350, 460)`}>
         <text style={{ fill: "#635f5d" }}>
-            {label}
+            {`${label} (cm)` }
         </text>
     </g>
 )

@@ -1,6 +1,11 @@
 import { useDataContext } from '../dataContext'
 
-export const Marks = ({ xScale, yScale, xAccessor, yAccessor, circleRadius }) => {
+export const Marks = ({
+    xScale, xAccessor, xLabel,
+    yScale, yAccessor, yLabel,
+    colorScale, colorAccessor,
+    circleRadius
+}) => {
     const { data } = useDataContext()
 
     return (
@@ -10,8 +15,9 @@ export const Marks = ({ xScale, yScale, xAccessor, yAccessor, circleRadius }) =>
                 cx={xScale(xAccessor(d))}
                 cy={yScale(yAccessor(d))}
                 r={circleRadius}
+                fill={colorScale(colorAccessor(d))}
             >
-                <title>{`Petal lenght: ${xAccessor(d)}  -  Sepal width: ${yAccessor(d)}`}</title>
+                <title>{`${xLabel}: ${xAccessor(d)}  -  ${yLabel}: ${yAccessor(d)} - ${colorScale(colorAccessor(d))}`}</title>
             </circle>
         ))
     )
